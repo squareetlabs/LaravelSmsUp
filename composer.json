@@ -1,0 +1,43 @@
+{
+    "name": "squareetlabs/smsup",
+    "description": "Sends SMS using SmsUp API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alberto Rial Barreiro",
+            "email": "alberto@squareet.com",
+            "web": "https://www.squareet.com"
+        },
+        {
+            "name": "Jacobo Cantorna Cigarrán",
+            "email": "jacobo@squareet.com",
+            "web": "https://www.squareet.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/notifications": "5.*",
+        "illuminate/support": "5.*",
+        "illuminate/http": "5.*",
+        "illuminate/routing": "5.*",
+        "guzzlehttp/guzzle": "~6.0",
+        "nesbot/carbon": "^1.26.3 || ^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SquareetLabs\\LaravelSmsUp\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SquareetLabs\\LaravelSmsUp\\SmsUpServiceProvider"
+            ],
+            "aliases": {
+                "SmsUp": "SquareetLabs\\LaravelSmsUp\\Facades\\SmsUp"
+            }
+        }
+    }
+}
