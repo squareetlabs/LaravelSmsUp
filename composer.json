@@ -1,5 +1,5 @@
 {
-    "name": "squareetlabs/smsup",
+    "name": "squareetlabs/laravel-smsup",
     "description": "Sends SMS using SmsUp API",
     "type": "library",
     "license": "MIT",
