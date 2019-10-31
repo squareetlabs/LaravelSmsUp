@@ -61,7 +61,7 @@ public function ToSmsUp(INotifiable $notifiable)
         ->from('Foo')
         ->text('Text of your message')
         ->custom('MyMsgID-12345') // Optional. 
-        ->link(route('http://www.google.com')); // Optional
+        ->link('http://www.google.com'); // Optional
 
     return $message;
 }
