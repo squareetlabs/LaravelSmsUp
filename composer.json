@@ -1,6 +1,6 @@
 {
     "name": "squareetlabs/laravel-smsup",
-    "description": "Sends SMS using SmsUp API",
+    "description": "Laravel package to provide SmsUp API integration.",
     "type": "library",
     "license": "MIT",
     "authors": [
