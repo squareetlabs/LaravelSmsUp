@@ -35,6 +35,7 @@ return [
     ]
     ...
 ```
+Set test_mode to true if you want to simulate submitting messages, it's perfect for testing and debugging, it has no cost.
 
 ## Usage
 
