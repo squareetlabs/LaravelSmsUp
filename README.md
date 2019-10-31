@@ -20,7 +20,7 @@ SquareetLabs\LaravelSmsUp\SmsUpServiceProvider::class,
 
 Add the Facade to the aliases array in `config/app.php`:
 ```php
-'SmsUp': SquareetLabs\LaravelSmsUp\Facades\SmsUp::class,
+'SmsUp' => SquareetLabs\LaravelSmsUp\Facades\SmsUp::class,
 ```
 
 ## Configuration
