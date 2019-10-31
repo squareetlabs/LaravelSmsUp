@@ -79,6 +79,7 @@ public function routeNotificationForSmsUp(): string
 }
 ```
 To include the `link` in the message you must put the tag `{LINK}` in the area of the text of the sms you want.
+
 example:
 ```php
 ->text('Hi John! See our new offers only available for you: {LINK}');
