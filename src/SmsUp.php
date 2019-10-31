@@ -56,15 +56,16 @@ class SmsUp
      * @param string $reportUrl
      * @return ResponseInterface
      */
-    public function sendMessages(array $messages, $reportUrl)
+    public function sendMessages(array $messages, $reportUrl = '')
     {
         $data = [
             'api_key' => $this->config['key'],
-            'report_url' => $reportUrl,
             'concat' => 1,
             'fake' => $this->config['test_mode'] ? 1 : 0,
             'messages' => $messages
         ];
+        if (!empty($reportUrl))
+            $data['report_url'] = $reportUrl;
         $response = $this->client->post(self::API_URI . self::ENDPOINT_SEND, [
             'headers' => [
                 'Content-Type' => 'application/json',

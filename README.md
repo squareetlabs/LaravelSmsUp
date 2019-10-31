@@ -78,3 +78,6 @@ public function routeNotificationForSmsUp(): string
     return $this->phone;
 }
 ```
+
+### Using SmsUp Facade
+
