@@ -177,7 +177,7 @@ The callback url passed to SmsUp is: `http://yourserver/yourapplication/smsup/re
 
 Example:
 ```php
-use App\Services\SmsUp\Events\SmsUpReportWasReceived;
+use SquareetLabs\LaravelSmsUp\Events\SmsUpReportWasReceived;
 use SquareetLabs\LaravelSmsUp\SmsUpReportResponse;
 use SquareetLabs\LaravelSmsUp\SmsUpReportResponseMessage;
 
