@@ -40,8 +40,7 @@ class SmsUpChannel
         $messages = [
             $message->formatData()
         ];
-        $reportUrl = route('smsup.report');
-        $response = Facades\SmsUp::sendMessages($messages, $reportUrl);
+        $response = Facades\SmsUp::sendMessages($messages);
 
         $responseArray = [];
         array_push($responseArray, \GuzzleHttp\json_decode($response->getBody(), true));
