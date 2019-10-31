@@ -171,6 +171,15 @@ class SmsUpMessageSentListener
     }
 }
 ```
+In your `EventServiceProvider`:
+````php
+protected $listen = [
+        ...
+        'SquareetLabs\LaravelSmsUp\Events\SmsUpMessageWasSent' => [
+            'App\Listeners\SmsUpMessageSentListener',
+        ],
+    ];
+````
 
 ### SmsUp Report Received
 Triggered when a status report of sent sms is received from SmsUp.
@@ -203,6 +212,15 @@ class SmsUpReportReceivedListener
     }
 }
 ```
+In your `EventServiceProvider`:
+````php
+protected $listen = [
+        ...
+        'SquareetLabs\LaravelSmsUp\Events\SmsUpReportWasReceived' => [
+            'App\Listeners\SmsUpReportReceivedListener',
+        ],
+    ];
+````
 
 ## SmsUp API Documentation
 Visit [SmsUp API Documentation](https://app.smsup.es/api/3.0/docs/) for more information.
