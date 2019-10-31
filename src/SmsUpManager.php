@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  * Class SmsUp
  * @package SquareetLabs\LaravelSmsUp
  */
-class SmsUp
+class SmsUpManager
 {
     /**
      * @const The API URL for SmsUp
@@ -20,6 +20,11 @@ class SmsUp
      * @const The API endpoint to send messages
      */
     const ENDPOINT_SEND = '3.0/sms/send';
+
+    /**
+     * @const The API endpoint to send messages with link
+     */
+    const ENDPOINT_SEND_LINK = '3.0/sms/send-link';
 
     /**
      * @const The API endpoint to verify phone number
@@ -64,7 +69,14 @@ class SmsUp
             'fake' => $this->config['test_mode'] ? 1 : 0,
             'messages' => $messages
         ];
-        $response = $this->client->post(self::API_URI . self::ENDPOINT_SEND, [
+        If (!empty($messages[0]['link'])) {
+            $endpoint = self::ENDPOINT_SEND_LINK;
+            $data['link'] = $messages[0]['link'];
+        } else {
+            $endpoint = self::ENDPOINT_SEND;
+        }
+
+        $response = $this->client->post(self::API_URI . $endpoint, [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',

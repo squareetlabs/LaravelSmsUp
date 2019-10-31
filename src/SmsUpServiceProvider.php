@@ -24,7 +24,7 @@ class SmsUpServiceProvider extends ServiceProvider
             });
         });
         $this->app->bind('smsUp', function() {
-            return new SmsUp(config('services.smsUp'));
+            return new SmsUpManager(config('services.smsUp'));
         });
 
         $this->registerRoutes();
