@@ -205,3 +205,14 @@ class SmsUpReportReceivedListener
 
 ## SmsUp API Documentation
 Visit [SmsUp API Documentation](https://app.smsup.es/api/3.0/docs/) for more information.
+
+## Support
+Feel free to post your issues in the issues section.
+
+## Credits
+- [Alberto Rial Barreiro](https://github.com/alberto-rial)
+- [SquareetLabs](https://www.squareet.com)
+- [All Contributors](../../contributors)
+
+## License
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
