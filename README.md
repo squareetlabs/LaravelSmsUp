@@ -1,5 +1,7 @@
 # SmsUp API Integration for Laravel
 
+
+
 ## Installation
 
 ### Install Package
