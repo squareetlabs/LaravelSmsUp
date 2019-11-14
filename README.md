@@ -185,6 +185,7 @@ protected $listen = [
 ````
 
 ### SmsUp Report Received
+
 Triggered when a status report of sent sms is received from SmsUp.
 The callback url passed to SmsUp is: `http://yourserver/yourapplication/smsup/report`.
 
