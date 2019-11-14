@@ -33,7 +33,7 @@ return [
     ...
     'smsUp' => [
          'key' => env('SMSUP_KEY'),
-         'test_mode' => true
+         'test_mode' => env('SMSUP_TEST_MODE') // true or false
     ]
     ...
 ```

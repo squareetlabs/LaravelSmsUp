@@ -51,7 +51,7 @@ class SmsUpReportResponseMessage
         $this->to = $response['to'];
         $this->custom = isset($response['custom']) ? $response['custom'] : '';
         $this->smsDate = isset($response['sms_date']) ? $response['sms_date'] : '';
-        $this->dlrDate = isset($response['dlrDate']) ? $response['dlrDate'] : '';
+        $this->dlrDate = isset($response['dlr_date']) ? $response['dlr_date'] : '';
     }
 
     /**

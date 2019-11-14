@@ -51,7 +51,7 @@ class SmsUpServiceProvider extends ServiceProvider
     {
         return [
             'domain' => null,
-            'namespace' => 'App\Services\SmsUp\Http\Controllers',
+            'namespace' => 'SquareetLabs\LaravelSmsUp\Http\Controllers',
             'prefix' => 'smsup'
         ];
     }
