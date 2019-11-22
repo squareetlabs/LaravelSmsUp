@@ -57,7 +57,7 @@ Add the method `public function toSmsUp($notifiable)` to your notification, and 
 ```php
 use SquareetLabs\LaravelSmsUp\SmsUpMessage;
 ...
-public function ToSmsUp(INotifiable $notifiable)
+public function toSmsUp(INotifiable $notifiable)
 {
     $message = new SmsUpMessage();
     $message->to('34xxxxxxxxx') 
