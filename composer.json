@@ -7,12 +7,14 @@
         {
             "name": "Alberto Rial Barreiro",
             "email": "alberto@squareet.com",
-            "web": "https://www.squareet.com"
+            "home": "https://www.squareet.com",
+            "role": "Developer"
         },
         {
             "name": "Jacobo Cantorna Cigarrán",
             "email": "jacobo@squareet.com",
-            "web": "https://www.squareet.com"
+            "home": "https://www.squareet.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
