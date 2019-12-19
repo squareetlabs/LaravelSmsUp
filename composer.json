@@ -7,22 +7,26 @@
         {
             "name": "Alberto Rial Barreiro",
             "email": "alberto@squareet.com",
-            "web": "https://www.squareet.com"
+            "homepage": "https://www.squareet.com",
+            "role": "Developer"
         },
         {
             "name": "Jacobo Cantorna Cigarrán",
             "email": "jacobo@squareet.com",
-            "web": "https://www.squareet.com"
+            "homepage": "https://www.squareet.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0",
-        "illuminate/notifications": "5.*",
-        "illuminate/support": "5.*",
-        "illuminate/http": "5.*",
-        "illuminate/routing": "5.*",
+        "ext-json": "*",
+        "illuminate/notifications": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
+        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
+        "illuminate/http": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
+        "illuminate/routing": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
         "guzzlehttp/guzzle": "~6.0",
+        "illuminate/events": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0",
         "nesbot/carbon": "^2.0"
     },
     "autoload": {
@@ -39,5 +43,8 @@
                 "SmsUp": "SquareetLabs\\LaravelSmsUp\\Facades\\SmsUp"
             }
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }

@@ -2,6 +2,7 @@
 
 namespace SquareetLabs\LaravelSmsUp;
 
+use Illuminate\Support\Facades\Event;
 use SquareetLabs\LaravelSmsUp\Events\SmsUpMessageWasSent;
 use SquareetLabs\LaravelSmsUp\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
@@ -43,9 +44,9 @@ class SmsUpChannel
         $response = Facades\SmsUp::sendMessages($messages);
 
         $responseArray = [];
-        array_push($responseArray, \GuzzleHttp\json_decode($response->getBody(), true));
+        array_push($responseArray, json_decode($response->getBody(), true));
         $reponseMessage = new SmsUpResponse($responseArray[0]);
 
-        event(new SmsUpMessageWasSent($message, $reponseMessage));
+        Event::dispatch(new SmsUpMessageWasSent($message, $reponseMessage));
     }
 }

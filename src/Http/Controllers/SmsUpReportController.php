@@ -2,6 +2,7 @@
 
 namespace SquareetLabs\LaravelSmsUp\Http\Controllers;
 
+use Illuminate\Support\Facades\Event;
 use SquareetLabs\LaravelSmsUp\Events\SmsUpReportWasReceived;
 use SquareetLabs\LaravelSmsUp\SmsUpReportResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,6 @@ class SmsUpReportController extends Controller
     public function report(Request $request)
     {
         $responseReport = new SmsUpReportResponse($request->all());
-        event(new SmsUpReportWasReceived($responseReport));
+        Event::dispatch(new SmsUpReportWasReceived($responseReport));
     }
 }

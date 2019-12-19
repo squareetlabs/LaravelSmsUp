@@ -1,6 +1,13 @@
 # SmsUp API Integration for Laravel
 
-
+<p align="center">
+<a href="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/"><img src="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/badges/quality-score.png?b=master" alt="Quality Score"></a>
+<a href="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/"><img src="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/badges/build.png?b=master" alt="Build Status"></a>
+<a href="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/"><img src="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/badges/code-intelligence.svg?b=master" alt="Code Intelligence"></a>
+<a href="https://packagist.org/packages/squareetlabs/laravel-smsup"><img class="latest_stable_version_img" src="https://poser.pugx.org/squareetlabs/laravel-smsup/v/stable" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/squareetlabs/laravel-smsup"><img class="total_img" src="https://poser.pugx.org/squareetlabs/laravel-smsup/downloads" alt="Total Downloads"></a> 
+<a href="https://packagist.org/packages/squareetlabs/laravel-smsup"><img class="license_img" src="https://poser.pugx.org/squareetlabs/laravel-smsup/license" alt="License"></a>
+</p>
 
 ## Installation
 
