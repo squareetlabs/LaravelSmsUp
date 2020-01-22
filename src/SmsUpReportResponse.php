@@ -16,7 +16,9 @@ class SmsUpReportResponse
     public function __construct(array $response)
     {
         foreach ($response as $responseMessage) {
-            $this->responseMessages[] = new SmsUpReportResponseMessage($responseMessage);
+            if (array_key_exists('status', $response)) {
+                $this->responseMessages[] = new SmsUpReportResponseMessage($responseMessage);
+            }
         }
     }
 

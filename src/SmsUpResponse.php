@@ -34,7 +34,9 @@ class SmsUpResponse
         $this->errorId = isset($response['error_id']) ? $response['error_id'] : '';
         $this->errorMsg = isset($response['error_msg']) ? $response['error_msg'] : '';
         foreach ($response['result'] as $responseMessage) {
-            $this->result[] = new SmsUpResponseMessage($responseMessage);
+            if (array_key_exists('status', $response)) {
+                $this->result[] = new SmsUpResponseMessage($responseMessage);
+            }
         }
     }
 

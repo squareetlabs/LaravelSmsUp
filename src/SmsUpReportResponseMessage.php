@@ -45,6 +45,7 @@ class SmsUpReportResponseMessage
 
     public function __construct(array $response)
     {
+
         $this->status = $response['status'];
         $this->smsId = $response['sms_id'];
         $this->from = $response['from'];
