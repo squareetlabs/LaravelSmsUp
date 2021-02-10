@@ -242,7 +242,7 @@ Feel free to post your issues in the issues section.
 ## Credits
 - [Alberto Rial Barreiro](https://github.com/alberto-rial)
 - [Jacobo Cantorna Cigarrán](https://github.com/jcancig)
-- [SquareetLabs](https://www.squareet.com)
+- [Desarrollo de software](https://squareet.com) SquareetLabs
 - [All Contributors](../../contributors)
 
 ## License
