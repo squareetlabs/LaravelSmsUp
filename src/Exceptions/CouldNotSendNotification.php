@@ -2,11 +2,13 @@
 
 namespace SquareetLabs\LaravelSmsUp\Exceptions;
 
+use Exception;
+
 /**
  * Class CouldNotSendNotification
  * @package SquareetLabs\LaravelSmsUp\Exceptions
  */
-class CouldNotSendNotification extends \Exception
+class CouldNotSendNotification extends Exception
 {
     /**
      * Get a new could not send notification exception with
