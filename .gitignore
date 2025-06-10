@@ -3,3 +3,4 @@ build
 composer.phar
 composer.lock
 .idea
+.idea/php.xml

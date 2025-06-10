@@ -1,4 +1,4 @@
-# SmsUp API Integration for Laravel
+# Laravel SmsUp - Integración API SmsUp/Gateway360
 
 <p align="center">
 <a href="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/"><img src="https://scrutinizer-ci.com/g/squareetlabs/LaravelSmsUp/badges/quality-score.png?b=master" alt="Quality Score"></a>
@@ -9,241 +9,249 @@
 <a href="https://packagist.org/packages/squareetlabs/laravel-smsup"><img class="license_img" src="https://poser.pugx.org/squareetlabs/laravel-smsup/license" alt="License"></a>
 </p>
 
-## Installation
+Paquete Laravel para integración completa con la API de SmsUp (Gateway360). Compatible con Laravel 5.5 a 12.x.
 
-### Install Package
-You can install this package via composer:
+## ✨ Características
+
+- ✅ **Compatible con Laravel 5.5 - 12.x**
+- ✅ **PHP 7.4 - 8.3**
+- ✅ **Envío de SMS individuales y masivos**
+- ✅ **Soporte para codificación GSM7 y UCS2 (Unicode)**
+- ✅ **Programación de envíos**
+- ✅ **SMS con enlaces**
+- ✅ **Validación automática de números y mensajes**
+- ✅ **Integración con Laravel Notifications**
+- ✅ **Manejo avanzado de errores**
+- ✅ **Logging configurable**
+- ✅ **Eventos para tracking**
+- ✅ **Webhooks para reportes de entrega**
+
+## 📦 Instalación
+
 ```bash
 composer require squareetlabs/laravel-smsup
 ```
 
-### Add Service Provider & Facade
-#### For Laravel 5.5+
-Once the package is added, the service provider and facade will be autodiscovered.
+### Publicar Configuración
 
-#### For Older versions of Laravel
-Add the ServiceProvider to the providers array in `config/app.php`:
-```php
-SquareetLabs\LaravelSmsUp\SmsUpServiceProvider::class,
-```
-
-Add the Facade to the aliases array in `config/app.php`:
-```php
-'SmsUp' => SquareetLabs\LaravelSmsUp\Facades\SmsUp::class,
-```
-
-## Configuration
-Add your SmsUp API key to your `config/services.php` file:
-```php
-return [   
-    ...
-    ...
-    'smsUp' => [
-         'key' => env('SMSUP_KEY'),
-         'test_mode' => env('SMSUP_TEST_MODE') // true or false
-    ]
-    ...
-```
-Set `test_mode` to `true` if you want to simulate submitting messages, it's perfect for testing and debugging, it has no cost.
-
-## Usage
-
-### Using Laravel Notification
-Use artisan to create a notification:
 ```bash
-php artisan make:notification someNotification
-```
-Return `[smsUp]` in the `public function via($notifiable)` method of your notification:
-```php
-public function via(INotifiable $notifiable)
-{
-    return ['smsUp'];
-}
-```
-Add the method `public function toSmsUp($notifiable)` to your notification, and return an instance of `SmsUpMessage`:
-```php
-use SquareetLabs\LaravelSmsUp\SmsUpMessage;
-...
-public function toSmsUp(INotifiable $notifiable)
-{
-    $message = new SmsUpMessage();
-    $message->to('34xxxxxxxxx') 
-        ->from('Foo')
-        ->text('Text of your message')
-        ->custom('MyMsgID-12345') // Optional. 
-        ->link('http://www.google.com'); // Optional
-
-    return $message;
-}
-```
-If you don't indicate the parameter `to`, make sure your notifiable entity has `routeNotificationForSmsUp` method defined:
-```php
-/**
- * Route notifications for the SmsUp channel.
- *
- * @return string
- */
-public function routeNotificationForSmsUp(): string
-{
-    return $this->phone;
-}
-```
-To include the `link` in the message you must put the tag `{LINK}` in the area of the text of the sms you want.
-
-example:
-```php
-->text('Hi John! See our new offers only available for you: {LINK}');
+php artisan vendor:publish --tag=smsup-config
 ```
 
-### Using SmsUp Facade
+### Configuración
 
-#### Send messages
+Añade las siguientes variables a tu archivo `.env`:
+
+```env
+SMSUP_API_KEY=tu_clave_api_aqui
+SMSUP_DEFAULT_FROM=TuEmpresa
+SMSUP_TEST_MODE=false
+SMSUP_ENCODING=GSM7
+```
+
+## 🚀 Uso Rápido
+
+### Envío Simple
+
 ```php
 use SquareetLabs\LaravelSmsUp\SmsUpMessage;
 use SquareetLabs\LaravelSmsUp\Facades\SmsUp;
-...
-$message1 = new SmsUpMessage();
-$message->to('34xxxxxxxxx') 
-    ->from('Foo')
-    ->text('Text of your message')
-    ->custom('MyMsgID-12345') // Optional. 
-    ->link('http://www.google.com'); // Optional
-$message2 = new SmsUpMessage();
-$message2->to('34xxxxxxxxx') 
-    ->from('Foo')
-    ->text('Text of your message')
-    ->custom('MyMsgID-12346') // Optional. 
-    ->link('http://www.google.com'); // Optional
-$messages = [
-    $message1->formatData(),
-    $message2->formatData()
-];
-SmsUp::sendMessages($messages);
+
+// Crear y enviar mensaje
+$message = SmsUpMessage::create('34666666666', 'Hola mundo!', 'MiEmpresa');
+$response = SmsUp::sendMessage($message);
+
+if ($response->isSuccessful()) {
+    echo "SMS enviado correctamente";
+}
 ```
 
-#### Get SmsUp account balance
+### Con Laravel Notifications
+
 ```php
-use SquareetLabs\LaravelSmsUp\Facades\SmsUp;
-...
+// En tu notificación
+public function via($notifiable)
+{
+    return ['smsup'];
+}
+
+public function toSmsUp($notifiable)
+{
+    return SmsUpMessage::create(
+        $notifiable->phone,
+        'Tu pedido ha sido confirmado',
+        'MiTienda'
+    );
+}
+```
+
+## 📖 Documentación Completa
+
+Para documentación detallada, ejemplos avanzados y todas las características, consulta [USAGE.md](USAGE.md).
+
+## 🔧 Configuración Avanzada
+
+El archivo de configuración `config/smsup.php` permite personalizar:
+
+- **API y autenticación**
+- **Valores por defecto** (remitente, codificación, etc.)
+- **Validaciones** (formato de teléfonos, longitud de mensajes)
+- **Logging** (canales, niveles)
+- **Timeouts HTTP**
+- **Reintentos automáticos**
+
+## 🎯 Características Principales
+
+### Codificaciones Soportadas
+
+- **GSM7**: 160 caracteres por SMS (caracteres básicos)
+- **UCS2**: 70 caracteres por SMS (Unicode completo, emojis)
+
+```php
+$message->gsm7();    // Para caracteres básicos
+$message->unicode(); // Para emojis y caracteres especiales
+```
+
+### Programación de Envíos
+
+```php
+$message->sendInMinutes(30);           // En 30 minutos
+$message->sendInHours(2);              // En 2 horas
+$message->sendAt(Carbon::tomorrow());  // Fecha específica
+```
+
+### Validación Automática
+
+El paquete valida automáticamente:
+- Formato de números de teléfono
+- Longitud de mensajes según codificación
+- Formato de remitentes
+- Campos requeridos
+
+### Manejo de Respuestas
+
+```php
+$response = SmsUp::sendMessage($message);
+
+echo "Total: " . $response->getMessageCount();
+echo "Exitosos: " . $response->getSuccessfulMessageCount();
+echo "Fallidos: " . $response->getFailedMessageCount();
+
+// Detalles de cada mensaje
+foreach ($response->getResult() as $messageResponse) {
+    echo "SMS ID: " . $messageResponse->getSmsId();
+    echo "Estado: " . $messageResponse->getStatus();
+}
+```
+
+## 🔍 Funciones Adicionales
+
+### Verificación de Números
+
+```php
+$isValid = SmsUp::verifyPhone('34666666666');
+```
+
+### Consulta de Balance
+
+```php
 $balance = SmsUp::getBalance();
 ```
 
-#### Verify phone number by SmsUp
-This method return `true` or `false`. This service has a cost charged by SmsUp.
+### SMS con Enlaces
+
 ```php
-use SquareetLabs\LaravelSmsUp\Facades\SmsUp;
-...
-$verify = SmsUp::verifyPhone('34xxxxxxxxx');
+$message->text('Visita nuestro sitio: {LINK}')
+        ->link('https://www.miempresa.com');
 ```
 
-## Available Events
-LaravelSmsUp comes with handy events which provides the required information about the SMS messages.
+## 📊 Eventos
 
-### Messages Was Sent
-Triggered when one or more messages are sent.
+El paquete dispara eventos para tracking:
 
-Example:
+- `SmsUpMessageWasSent`: Cuando se envía un mensaje
+- `SmsUpReportWasReceived`: Cuando se recibe un reporte de entrega
+
 ```php
-use SquareetLabs\LaravelSmsUp\Events\SmsUpMessageWasSent;
-use SquareetLabs\LaravelSmsUp\SmsUpMessage;
-use SquareetLabs\LaravelSmsUp\SmsUpResponse;
-use SquareetLabs\LaravelSmsUp\SmsUpResponseMessage;
+// En EventServiceProvider
+protected $listen = [
+    \SquareetLabs\LaravelSmsUp\Events\SmsUpMessageWasSent::class => [
+        \App\Listeners\LogSmsMessage::class,
+    ],
+];
+```
 
-class SmsUpMessageSentListener
-{
-    /**
-     * Handle the event.
-     *
-     * @param  SmsUpMessageWasSent  $event
-     * @return void
-     */
-    public function handle(SmsUpMessageWasSent $event)
-    {
-        $response = $event->response; // Class SmsUpResponse
-        $message = $event->message; // Class SmsUpMessage
+## 🛡️ Manejo de Errores
 
-        if ($response->getStatus() != 'ok') {
-            $yourModel = YourModel::find($message->getCustom());
-            $yourModel->sms_status = $response->getStatus();
-            $yourModel->sms_error_id = $response->getErrorId();
-            $yourModel->sms_error_msg = $response->getErrorMsg();
-            $yourModel->save();
-        } else {
-            foreach ($response->getResult() as $responseMessage) { // class SmsUpResponseMessage
-                $yourModel = YourModel::find($responseMessage->getCustom());
-                $yourModel->sms_status = $responseMessage->getStatus();
-                $yourModel->sms_id = $responseMessage->getSmsId();
-                $yourModel->sms_error_id = $responseMessage->getErrorId();
-                $yourModel->sms_error_msg = $responseMessage->getErrorMsg();
-                $yourModel->save();
-            }
-        }
+```php
+use SquareetLabs\LaravelSmsUp\Exceptions\CouldNotSendNotification;
+use SquareetLabs\LaravelSmsUp\Exceptions\ValidationException;
+
+try {
+    $response = SmsUp::sendMessage($message);
+} catch (ValidationException $e) {
+    // Errores de validación
+    foreach ($e->getErrors() as $error) {
+        echo "Error: " . $error;
     }
+} catch (CouldNotSendNotification $e) {
+    // Errores de API o configuración
+    echo "Error: " . $e->getMessage();
 }
 ```
-In your `EventServiceProvider`:
-````php
-protected $listen = [
-        ...
-        'SquareetLabs\LaravelSmsUp\Events\SmsUpMessageWasSent' => [
-            'App\Listeners\SmsUpMessageSentListener',
-        ],
-    ];
-````
 
-### SmsUp Report Received
+## 🔗 Webhooks
 
-Triggered when a status report of sent sms is received from SmsUp.
-The callback url passed to SmsUp is: `http://yourserver/yourapplication/smsup/report`.
+El paquete incluye un endpoint automático para recibir reportes de entrega:
 
-Example:
-```php
-use SquareetLabs\LaravelSmsUp\Events\SmsUpReportWasReceived;
-use SquareetLabs\LaravelSmsUp\SmsUpReportResponse;
-use SquareetLabs\LaravelSmsUp\SmsUpReportResponseMessage;
-
-class SmsUpReportReceivedListener
-{
-    /**
-     * Handle the event.
-     *
-     * @param  SmsUpReportWasReceived  $event
-     * @return void
-     */
-    public function handle(SmsUpReportWasReceived $event)
-    {
-        $response = $event->response; // Class SmsUpReportResponse
-        
-        foreach ($response->getResponseMessages() as $responseMessage) { // Class SmsUpReportResponseMessage
-            $yourModel = YourModel::find($responseMessage->getCustom());
-            $yourModel->sms_status = $responseMessage->getStatus();
-            $yourModel->sms_delivery_at = $responseMessage->getDlrDate();
-            $yourModel->save();
-        }
-    }
-}
 ```
-In your `EventServiceProvider`:
-````php
-protected $listen = [
-        ...
-        'SquareetLabs\LaravelSmsUp\Events\SmsUpReportWasReceived' => [
-            'App\Listeners\SmsUpReportReceivedListener',
-        ],
-    ];
-````
+POST /smsup/report
+```
 
-## SmsUp API Documentation
-Visit [SmsUp API Documentation](https://app.smsup.es/api/3.0/docs/) for more information.
+Los reportes se procesan automáticamente y disparan eventos.
 
-## Support
-Feel free to post your issues in the issues section.
+## 🧪 Modo de Prueba
 
-## Credits
-- [Alberto Rial Barreiro](https://github.com/alberto-rial)
-- [Jacobo Cantorna Cigarrán](https://github.com/jcancig)
-- [Desarrollo de software](https://squareet.com) SquareetLabs
-- [All Contributors](../../contributors)
+Activa el modo de prueba para desarrollo:
 
-## License
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+```env
+SMSUP_TEST_MODE=true
+```
+
+En modo de prueba, los SMS no se envían realmente pero se procesan normalmente.
+
+## 📋 Requisitos
+
+- Laravel 5.5 - 12.x
+- PHP 7.4 - 8.3
+- Guzzle HTTP 6.2+ o 7.0+
+- Extensión JSON de PHP
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature
+3. Commit tus cambios
+4. Push a la rama
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este paquete es open-source bajo la [Licencia MIT](LICENSE.md).
+
+## 🆘 Soporte
+
+- **Documentación completa**: [USAGE.md](USAGE.md)
+- **API de SmsUp**: https://api.gateway360.com/api/3.0/docs/sms/send
+- **Issues**: https://github.com/squareetlabs/LaravelSmsUp/issues
+
+## 👥 Autores
+
+- **Alberto Rial Barreiro** - [SquareetLabs](https://www.squareet.com)
+- **Jacobo Cantorna Cigarrán** - [SquareetLabs](https://www.squareet.com)
+
+---
+
+⭐ Si este paquete te ha sido útil, ¡no olvides darle una estrella en GitHub!
